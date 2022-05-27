@@ -99,7 +99,6 @@ function generateBoxStyles(box, boxSize, maxTop, maxLeft) {
     box.style.height = box.style.width = boxSize + 'px'
     box.style.position = 'absolute'
     boxColor = generateRandomColor()
-    console.log(boxColor)
     box.style.backgroundColor = 'rgb('+ boxColor[0] +','+ boxColor[1] +','+ boxColor[2] +')'
     console.log(box.style.backgroundColor.toString())
     box.style.top = generateBoxSize(0, maxTop) + 'px'
@@ -108,9 +107,9 @@ function generateBoxStyles(box, boxSize, maxTop, maxLeft) {
 }
 
 function generateRandomColor() {
-    valueRed = Math.floor(Math.random() * 255)
-    valueGreen = Math.floor(Math.random() * 255)
-    valueBlue = Math.floor(Math.random() * 255)
+    var valueRed = Math.floor(Math.random() * 255)
+    var valueGreen = Math.floor(Math.random() * 255)
+    var valueBlue = Math.floor(Math.random() * 255)
     return [valueRed, valueGreen, valueBlue]
 }
 
