@@ -1,7 +1,43 @@
 var startBtn = document.querySelector('#start')
 var gameField = document.querySelector('#game')
+var time = document.querySelector('#time')
 
 var score = 0
+var isGameStarted = false
+
+function startGame() {
+    isGameStarted = true
+    gameField.style.backgroundColor = '#fff'
+    startBtn.classList.add('hide')
+
+    var interval = setInterval(function () {
+        var timeContent = parseFloat(time.textContent)
+        console.log(timeContent)
+        if (timeContent <= 0) {
+            clearInterval(interval)
+            endGame()
+        } else {
+            time.textContent = (timeContent - 0.1).toFixed(1)
+        }
+    }, 100)
+
+    renderGenerateBoxes()
+}
+
+function endGame() {
+ isGameStarted = false
+}
+
+function handleBoxClick(e) {
+    if (!isGameStarted) {
+        return
+    }
+
+    if (e.target.dataset.box) {
+        score++
+        renderGenerateBoxes()
+    }
+}
 
 function renderGenerateBoxes() {
     gameField.innerHTML = ''
@@ -34,20 +70,6 @@ function generateBoxStyles(box, boxSize, maxTop, maxLeft) {
     box.style.top = generateBoxSize(0, maxTop) + 'px'
     box.style.left = generateBoxSize(0, maxLeft) + 'px'
     box.style.cursor = 'pointer'
-}
-
-function startGame() {
-    gameField.style.backgroundColor = '#fff'
-    startBtn.classList.add('hide')
-
-    renderGenerateBoxes()
-}
-
-function handleBoxClick(e) {
-    if (e.target.dataset.box) {
-        score++
-        renderGenerateBoxes()
-    }
 }
 
 startBtn.addEventListener('click', startGame)
