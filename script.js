@@ -1,12 +1,19 @@
 var startBtn = document.querySelector('#start')
 var gameField = document.querySelector('#game')
 var time = document.querySelector('#time')
+var result = document.querySelector('#result')
+var timeHeader = document.querySelector('#time-header')
+var resultHeader = document.querySelector('#result-header')
 
 var score = 0
 var isGameStarted = false
 
 function startGame() {
+    score = 0
+    setGameTime()
+    resetTitleAfterEndGame()
     isGameStarted = true
+
     gameField.style.backgroundColor = '#fff'
     startBtn.classList.add('hide')
 
@@ -24,8 +31,32 @@ function startGame() {
     renderGenerateBoxes()
 }
 
+function resetGameFieldAfterEndGame() {
+    startBtn.classList.remove('hide')
+    gameField.innerHTML = ''
+    gameField.style.backgroundColor = '#ccc'
+    timeHeader.classList.add('hide')
+    resultHeader.classList.remove('hide')
+}
+
+function resetTitleAfterEndGame() {
+    timeHeader.classList.remove('hide')
+    resultHeader.classList.add('hide')
+}
+
+function calcGameScore() {
+    result.textContent = score.toString()
+}
+
+function setGameTime() {
+    var timeStartNewGame = 5
+    time.textContent = timeStartNewGame.toFixed(1)
+}
+
 function endGame() {
- isGameStarted = false
+    isGameStarted = false
+    calcGameScore()
+    resetGameFieldAfterEndGame()
 }
 
 function handleBoxClick(e) {
@@ -42,7 +73,7 @@ function handleBoxClick(e) {
 function renderGenerateBoxes() {
     gameField.innerHTML = ''
     var box = document.createElement('div')
-    var boxSize = generateBoxSize(30, 125)
+    var boxSize = generateBoxSize(30, 100)
     var gameFieldSize = gameField.getBoundingClientRect()
     var maxTop = generateLambdaNums(gameFieldSize, boxSize)[0] //gameFieldSize.height - boxSize
     var maxLeft = generateLambdaNums(gameFieldSize, boxSize)[1] //gameFieldSize.width - boxSize
